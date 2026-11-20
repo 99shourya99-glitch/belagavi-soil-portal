@@ -1,0 +1,590 @@
+/* ==========================================================================
+   BELAGAVI SOIL TESTING & REPORT PORTAL - 3D REALISTIC AESTHETIC STYLESHEET
+   Designed for JCE Belagavi Community Project (Batch B7) - 1BCP308
+   ========================================================================== */
+
+:root {
+  /* Agrarian Earth & Emerald Palette */
+  --forest-deep: #0f3d16;
+  --emerald-rich: #1b5e20;
+  --emerald-mid: #2e7d32;
+  --leaf-glow: #4caf50;
+  --harvest-gold: #f59e0b;
+  --harvest-amber: #d97706;
+  --terracotta: #8d4925;
+  --soil-cream: #f4f7f2;
+  --glass-surface: rgba(255, 255, 255, 0.86);
+  --glass-border: rgba(255, 255, 255, 0.65);
+  --text-main: #18221b;
+  --text-muted: #4b5e50;
+
+  /* Realistic Multi-Layered 3D Shadows */
+  --shadow-3d-card:
+    0 2px 4px rgba(15, 61, 22, 0.05),
+    0 12px 24px -4px rgba(15, 61, 22, 0.12),
+    0 24px 48px -12px rgba(15, 61, 22, 0.16),
+    inset 0 1px 1px rgba(255, 255, 255, 0.95);
+
+  --shadow-3d-hover:
+    0 4px 8px rgba(15, 61, 22, 0.08),
+    0 20px 36px -6px rgba(15, 61, 22, 0.18),
+    0 32px 64px -16px rgba(15, 61, 22, 0.22),
+    inset 0 1px 2px rgba(255, 255, 255, 1);
+
+  --shadow-3d-btn:
+    0 5px 0 #0d3612,
+    0 10px 18px rgba(15, 61, 22, 0.28),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45);
+
+  --shadow-3d-btn-active:
+    0 1px 0 #0d3612,
+    0 4px 8px rgba(15, 61, 22, 0.22);
+
+  --shadow-3d-inset:
+    inset 2px 3px 6px rgba(15, 45, 20, 0.1),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.9);
+}
+
+/* Global Reset & 3D Perspective Root */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  perspective: 1400px;
+}
+
+body {
+  font-family: 'Segoe UI', 'Noto Sans Kannada', system-ui, -apple-system, sans-serif;
+  color: var(--text-main);
+  line-height: 1.65;
+  min-height: 100vh;
+  background-color: var(--soil-cream);
+  /* Subtle topographic / contour agrarian background mesh */
+  background-image:
+    radial-gradient(at 10% 10%, rgba(76, 175, 80, 0.14) 0px, transparent 50%),
+    radial-gradient(at 90% 15%, rgba(245, 158, 11, 0.11) 0px, transparent 48%),
+    radial-gradient(at 50% 95%, rgba(27, 94, 32, 0.12) 0px, transparent 55%),
+    repeating-linear-gradient(
+      45deg,
+      rgba(27, 94, 32, 0.015) 0px,
+      rgba(27, 94, 32, 0.015) 2px,
+      transparent 2px,
+      transparent 14px
+    );
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   3D ELEVATED HEADER & TACTILE NAVIGATION PILLS
+   ========================================================================== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(145deg, var(--forest-deep) 0%, var(--emerald-rich) 55%, var(--emerald-mid) 100%);
+  color: #ffffff;
+  padding: 1.15rem 5%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 8px 24px rgba(10, 42, 15, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transform-style: preserve-3d;
+}
+
+.logo {
+  transform: translateZ(16px);
+}
+
+.logo h1 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.32);
+}
+
+.logo p {
+  font-size: 0.85rem;
+  color: #d1fae5;
+  opacity: 0.95;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  align-items: center;
+}
+
+nav button {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #ffffff;
+  padding: 0.55rem 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow:
+    0 3px 0 rgba(8, 35, 12, 0.45),
+    0 6px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s ease, background 0.22s ease;
+}
+
+nav button:hover {
+  transform: translateY(-3px) scale(1.02);
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--forest-deep);
+  box-shadow:
+    0 5px 0 rgba(13, 54, 18, 0.35),
+    0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+nav button.active {
+  background: linear-gradient(180deg, #ffffff 0%, #ecfdf5 100%);
+  color: var(--forest-deep);
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 0 #a7f3d0,
+    0 10px 18px rgba(0, 0, 0, 0.22);
+}
+
+nav button:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgba(8, 35, 12, 0.45);
+}
+
+/* 3D Golden Bilingual Switcher */
+.lang-btn {
+  background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%) !important;
+  color: #1f1300 !important;
+  font-weight: 800 !important;
+  border: 1px solid #fde68a !important;
+  box-shadow:
+    0 4px 0 #92400e,
+    0 8px 16px rgba(217, 119, 6, 0.35) !important;
+}
+
+.lang-btn:hover {
+  background: linear-gradient(180deg, #fcd34d 0%, #f59e0b 100%) !important;
+  transform: translateY(-3px) rotateX(6deg);
+}
+
+.lang-btn:active {
+  transform: translateY(2px) !important;
+  box-shadow: 0 1px 0 #92400e !important;
+}
+
+/* ==========================================================================
+   MAIN CONTAINER & 3D GLASSMORPHIC SECTION CARDS
+   ========================================================================== */
+main {
+  max-width: 1080px;
+  margin: 2rem auto;
+  padding: 0 1.2rem;
+  perspective: 1200px;
+}
+
+.section {
+  display: none;
+  background: var(--glass-surface);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-border);
+  border-radius: 18px;
+  padding: 2rem;
+  box-shadow: var(--shadow-3d-card);
+  transform-style: preserve-3d;
+  animation: cardFloatIn 0.48s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.section.active {
+  display: block;
+}
+
+@keyframes cardFloatIn {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) rotateX(-6deg) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg) scale(1);
+  }
+}
+
+h2 {
+  color: var(--forest-deep);
+  font-size: 1.45rem;
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 2px solid rgba(46, 125, 50, 0.18);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+h3 {
+  color: var(--emerald-rich);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   3D RECESSED FORM INPUTS & EXTRUDED SUBMIT BUTTONS
+   ========================================================================== */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1.15rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+  font-size: 0.92rem;
+  color: var(--forest-deep);
+}
+
+input, select {
+  width: 100%;
+  padding: 0.72rem 0.9rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 0.96rem;
+  color: var(--text-main);
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+  box-shadow: var(--shadow-3d-inset);
+  transition: all 0.22s ease;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--emerald-mid);
+  background: #ffffff;
+  transform: translateY(-1px);
+  box-shadow:
+    inset 1px 1px 3px rgba(27, 94, 32, 0.08),
+    0 0 0 4px rgba(76, 175, 80, 0.2),
+    0 6px 14px rgba(27, 94, 32, 0.12);
+}
+
+/* Tactile 3D Extruded Action Button */
+.btn-submit {
+  position: relative;
+  background: linear-gradient(180deg, var(--leaf-glow) 0%, var(--emerald-mid) 45%, var(--emerald-rich) 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.85rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  width: 100%;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+  box-shadow: var(--shadow-3d-btn);
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.btn-submit:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.06);
+  box-shadow:
+    0 7px 0 #0d3612,
+    0 16px 26px rgba(15, 61, 22, 0.34),
+    inset 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+.btn-submit:active {
+  transform: translateY(3px);
+  box-shadow: var(--shadow-3d-btn-active);
+}
+
+/* ==========================================================================
+   3D PROGRESS STEPPER & SOIL HEALTH CARDS (WITH TILT DEPTH)
+   ========================================================================== */
+.stepper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 1.6rem 0;
+  gap: 0.6rem;
+}
+
+.step {
+  flex: 1;
+  min-width: 120px;
+  text-align: center;
+  padding: 0.75rem 0.5rem;
+  background: linear-gradient(180deg, #f1f5f9 0%, #e2e8f0 100%);
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #475569;
+  box-shadow: 0 3px 0 #cbd5e1, 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.step.done {
+  background: linear-gradient(180deg, #43a047 0%, #1b5e20 100%);
+  color: #ffffff;
+  border-color: #66bb6a;
+  transform: translateY(-3px);
+  box-shadow:
+    0 4px 0 #0d3612,
+    0 10px 18px rgba(27, 94, 32, 0.28),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45);
+}
+
+/* 3D Interactive Parameter Cards */
+.param-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+  gap: 1rem;
+  margin: 1.2rem 0;
+  perspective: 900px;
+}
+
+.param-card {
+  padding: 1.15rem;
+  border-radius: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  border-left: 6px solid #94a3b8;
+  background: linear-gradient(145deg, #ffffff, #f8fafc);
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.07),
+    0 2px 4px rgba(0, 0, 0, 0.04);
+  transform-style: preserve-3d;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.32s ease;
+}
+
+.param-card:hover {
+  transform: translateY(-7px) rotateX(6deg) rotateY(-4deg);
+  box-shadow: var(--shadow-3d-hover);
+}
+
+.param-card h2 {
+  border: none;
+  margin: 0.35rem 0;
+  padding: 0;
+  font-size: 1.55rem;
+  transform: translateZ(14px);
+}
+
+.low {
+  border-left-color: #dc2626;
+  background: linear-gradient(145deg, #fff5f5, #fee2e2);
+}
+
+.optimal {
+  border-left-color: #16a34a;
+  background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+}
+
+.high {
+  border-left-color: #ea580c;
+  background: linear-gradient(145deg, #fff7ed, #ffedd5);
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.18);
+}
+
+.low .badge { background: linear-gradient(180deg, #ef4444, #b91c1c); }
+.optimal .badge { background: linear-gradient(180deg, #22c55e, #15803d); }
+.high .badge { background: linear-gradient(180deg, #f97316, #c2410c); }
+
+/* ==========================================================================
+   3D BELAGAVI MAP VIEWPORT & LOCATION CHIPS
+   ========================================================================== */
+.lab-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.lab-chip {
+  background: linear-gradient(180deg, #ffffff 0%, #e8f5e9 100%);
+  border: 1px solid #81c784;
+  color: var(--forest-deep);
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 700;
+  box-shadow:
+    0 3px 0 #a5d6a7,
+    0 6px 12px rgba(27, 94, 32, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.lab-chip:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(180deg, var(--emerald-mid), var(--forest-deep));
+  color: #ffffff;
+  border-color: var(--forest-deep);
+  box-shadow:
+    0 4px 0 #0a290e,
+    0 10px 18px rgba(27, 94, 32, 0.25);
+}
+
+.lab-chip:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #a5d6a7;
+}
+
+/* Framed 3D Map Bezel */
+#belagaviMap {
+  border: 4px solid #ffffff !important;
+  border-radius: 16px !important;
+  box-shadow:
+    0 14px 30px rgba(15, 61, 22, 0.18),
+    0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+#belagaviMap:hover {
+  transform: scale(1.005);
+}
+
+/* ==========================================================================
+   3D SURVEY STAT CUBES, TABLES & ALERTS
+   ========================================================================== */
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+  gap: 1rem;
+  margin: 1.3rem 0;
+  perspective: 1000px;
+}
+
+.stat-box {
+  background: linear-gradient(145deg, #ffffff 0%, #ecfdf5 100%);
+  border: 1px solid #a7f3d0;
+  border-bottom: 4px solid var(--emerald-mid);
+  padding: 1.25rem 1rem;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow:
+    0 8px 18px rgba(15, 61, 22, 0.1),
+    inset 0 1px 1px #ffffff;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+
+.stat-box:hover {
+  transform: translateY(-6px) rotateX(8deg);
+  box-shadow: var(--shadow-3d-hover);
+}
+
+.stat-box h3 {
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: var(--forest-deep);
+  text-shadow: 0 2px 4px rgba(27, 94, 32, 0.15);
+}
+
+.stat-box p {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+/* Elevated 3D Data Table */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1.1rem 0;
+  font-size: 0.92rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(15, 61, 22, 0.08);
+  border: 1px solid #cbd5e1;
+}
+
+th, td {
+  padding: 0.75rem 0.9rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+  background: linear-gradient(180deg, var(--emerald-rich), var(--forest-deep));
+  color: #ffffff;
+  font-weight: 700;
+}
+
+tr:nth-child(even) td {
+  background-color: #f8fafc;
+}
+
+tr:hover td {
+  background-color: #ecfdf5;
+}
+
+.alert {
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  margin-top: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+}
+
+.alert-success {
+  background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+  color: #14532d;
+  border: 1px solid #86efac;
+  border-left: 5px solid #16a34a;
+}
+
+footer {
+  text-align: center;
+  padding: 1.6rem 1rem;
+  margin-top: 2rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   RESPONSIVE & PRINT STYLES
+   ========================================================================== */
+@media (max-width: 640px) {
+  header { padding: 1rem 4%; }
+  .section { padding: 1.35rem; border-radius: 14px; }
+  .logo h1 { font-size: 1.15rem; }
+}
+
+@media print {
+  body { background: #ffffff !important; }
+  header, nav, .no-print, footer { display: none !important; }
+  .section { box-shadow: none !important; border: none !important; padding: 0 !important; }
+}

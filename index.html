@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Belagavi Soil Testing & Report Portal | ಬೆಳಗಾವಿ ಮಣ್ಣು ಪರೀಕ್ಷಾ ಪೋರ್ಟಲ್</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <h1 data-i18n="title">Belagavi Soil Testing & Report Portal</h1>
+    <p data-i18n="subtitle">JCE Belagavi Community Project (Batch B7) • SDG 15 Sustainable Agriculture</p>
+  </div>
+  <nav>
+    <button class="active" onclick="showTab('book', this)" data-i18n="navBook">Book Slot</button>
+    <button onclick="showTab('track', this)" data-i18n="navTrack">Track & Report</button>
+    <button onclick="showTab('labs', this)" data-i18n="navLabs">Belagavi Labs Map</button>
+    <button onclick="showTab('staff', this)" data-i18n="navStaff">Lab Staff</button>
+    <button onclick="showTab('about', this)" data-i18n="navAbout">About & Survey</button>
+    <button class="lang-btn" onclick="toggleLang()" id="langToggle">ಕನ್ನಡ</button>
+  </nav>
+</header>
+
+<main>
+  <!-- 1. BOOK APPOINTMENT -->
+  <section id="book" class="section active">
+    <h2 data-i18n="bookHeading">Book Soil Testing Appointment (Avoid Queues)</h2>
+    <form id="bookingForm" onsubmit="submitBooking(event)">
+      <div class="grid-2">
+        <div class="form-group">
+          <label data-i18n="lblName">Farmer Full Name</label>
+          <input type="text" id="fName" required placeholder="e.g., Ramesh Patil" />
+        </div>
+        <div class="form-group">
+          <label data-i18n="lblPhone">Mobile Number (10-digit)</label>
+          <input type="tel" id="fPhone" pattern="[0-9]{10}" required placeholder="e.g., 9876543210" />
+        </div>
+        <div class="form-group">
+          <label data-i18n="lblVillage">Village / Hobli (Belagavi District)</label>
+          <select id="fVillage" required>
+            <option value="Machhe">Machhe (ಮಚ್ಛೆ)</option>
+            <option value="Peeranwadi">Peeranwadi (ಪೀರನವಾಡಿ)</option>
+            <option value="Kakati">Kakati (ಕಾಕತಿ)</option>
+            <option value="Hudli">Hudli (ಹುದಲಿ)</option>
+            <option value="Desur">Desur (ದೇಸೂರ)</option>
+            <option value="Bailhongal">Bailhongal (ಬೈಲಹೊಂಗಲ)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-i18n="lblCrop">Primary Crop</label>
+          <select id="fCrop" required>
+            <option value="Sugarcane">Sugarcane (ಕಬ್ಬು)</option>
+            <option value="Maize/Jowar">Maize / Jowar (ಮೆಕ್ಕೆಜೋಳ / ಜೋಳ)</option>
+            <option value="Paddy">Paddy (ಭತ್ತ)</option>
+            <option value="Vegetables/Pulses">Vegetables / Pulses (ತರಕಾರಿ / ಬೇಳೆಕಾಳು)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-i18n="lblLab">Nearest RSK / Soil Testing Center</label>
+          <select id="fLab" required>
+            <option value="District Soil Testing Lab, Belagavi">District Soil Testing Lab, Belagavi</option>
+            <option value="RSK Kakati">Raitha Samparka Kendra (RSK), Kakati</option>
+            <option value="RSK Peeranwadi / Machhe">Raitha Samparka Kendra (RSK), Peeranwadi - Machhe</option>
+            <option value="RSK Hudli">Raitha Samparka Kendra (RSK), Hudli</option>
+            <option value="RSK Desur">Raitha Samparka Kendra (RSK), Desur</option>
+            <option value="Soil Testing Lab, Bailhongal">Taluka Soil Testing Lab, Bailhongal</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-i18n="lblDate">Preferred Date & Morning Slot (9 AM - 1 PM)</label>
+          <input type="date" id="fDate" required />
+        </div>
+      </div>
+      <button type="submit" class="btn-submit" data-i18n="btnBook">Confirm Appointment Slot</button>
+    </form>
+    <div id="bookingResult"></div>
+  </section>
+
+  <!-- 2. TRACK STATUS & DIGITAL SOIL HEALTH CARD -->
+  <section id="track" class="section">
+    <h2 data-i18n="trackHeading">Track Sample Status & Download Bilingual Report</h2>
+    <div class="grid-2 no-print">
+      <div class="form-group">
+        <label data-i18n="lblSearch">Enter Booking ID or 10-Digit Mobile Number (Try Demo ID: BGM1001)</label>
+        <input type="text" id="searchQuery" value="BGM1001" placeholder="BGM1001 or 9876543210" />
+      </div>
+      <div class="form-group" style="display:flex; align-items:flex-end;">
+        <button class="btn-submit" onclick="fetchReport()" data-i18n="btnSearch">Check Status / View Report</button>
+      </div>
+    </div>
+    <div id="reportContainer"></div>
+  </section>
+
+  <!-- 3. GOOGLE MAPS FOR SURVEYED BELAGAVI LOCATIONS ONLY -->
+  <section id="labs" class="section">
+    <h2 data-i18n="mapHeading">Belagavi Surveyed Soil Testing Centers & RSK Locator</h2>
+    <p style="margin-bottom:0.8rem; font-size:0.9rem;" data-i18n="mapSub">
+      Click any surveyed Belagavi locality below to view its Raitha Samparka Kendra / Soil Testing Center on Google Maps:
+    </p>
+    <div class="lab-chips">
+      <button class="lab-chip" onclick="setMap('Belagavi District Soil Testing Laboratory Karnataka')">Belagavi Central Lab</button>
+      <button class="lab-chip" onclick="setMap('Machhe Belagavi Karnataka')">Machhe (ಮಚ್ಛೆ)</button>
+      <button class="lab-chip" onclick="setMap('Peeranwadi Belagavi Karnataka')">Peeranwadi (ಪೀರನವಾಡಿ)</button>
+      <button class="lab-chip" onclick="setMap('Kakati Belagavi Karnataka')">Kakati (ಕಾಕತಿ)</button>
+      <button class="lab-chip" onclick="setMap('Hudli Belagavi Karnataka')">Hudli (ಹುದಲಿ)</button>
+      <button class="lab-chip" onclick="setMap('Desur Belagavi Karnataka')">Desur (ದೇಸೂರ)</button>
+      <button class="lab-chip" onclick="setMap('Bailhongal Belagavi Karnataka')">Bailhongal (ಬೈಲಹೊಂಗಲ)</button>
+    </div>
+    <iframe
+      id="belagaviMap"
+      width="100%"
+      height="380"
+      style="border:0; border-radius:8px;"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      src="https://maps.google.com/maps?q=Belagavi%20Soil%20Testing%20Lab%20Karnataka&t=&z=11&ie=UTF8&iwloc=&output=embed">
+    </iframe>
+  </section>
+
+  <!-- 4. LAB STAFF DASHBOARD -->
+  <section id="staff" class="section">
+    <h2 data-i18n="staffHeading">RSK / Soil Lab Technician Dashboard</h2>
+    <p style="font-size:0.88rem; margin-bottom:1rem;">Enter Booking ID to update sample stage and publish N-P-K / pH readings digitally (Passcode: <b>JCE2026</b>).</p>
+    <div class="grid-2">
+      <div class="form-group"><label>Staff Passcode</label><input type="password" id="staffPass" placeholder="JCE2026" /></div>
+      <div class="form-group"><label>Farmer Booking ID</label><input type="text" id="uId" placeholder="e.g., BGM1001" /></div>
+      <div class="form-group">
+        <label>Current Sample Stage</label>
+        <select id="uStatus">
+          <option value="Booked">Booked</option>
+          <option value="Sample Collected">Sample Collected</option>
+          <option value="Under Analysis">Under Analysis</option>
+          <option value="Report Ready">Report Ready</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Soil pH (Optimal: 6.5 - 7.5)</label><input type="number" step="0.1" id="uPh" placeholder="7.1" /></div>
+      <div class="form-group"><label>EC in dS/m (Optimal: &lt; 1.0)</label><input type="number" step="0.01" id="uEc" placeholder="0.45" /></div>
+      <div class="form-group"><label>Nitrogen - N (kg/ha, Optimal: 280-560)</label><input type="number" id="uN" placeholder="240" /></div>
+      <div class="form-group"><label>Phosphorus - P (kg/ha, Optimal: 23-56)</label><input type="number" id="uP" placeholder="32" /></div>
+      <div class="form-group"><label>Potassium - K (kg/ha, Optimal: 140-280)</label><input type="number" id="uK" placeholder="310" /></div>
+    </div>
+    <button class="btn-submit" onclick="updateLabRecord()">Publish Status & Report</button>
+    <div id="staffResult"></div>
+  </section>
+
+  <!-- 5. ABOUT SECTION: STAKEHOLDER INTERACTION & PRELIMINARY SURVEY REPORT -->
+  <section id="about" class="section">
+    <h2>Stakeholder Interaction and Preliminary Survey Report</h2>
+    <p><strong>Institution:</strong> Jain College of Engineering (JCE), Belagavi (Affiliated to VTU, Belagavi) — Dept. of Computer Science & Engineering</p>
+    <p><strong>Course:</strong> Community/Societal Project (1BCP308) | <strong>Theme:</strong> Soil Testing Appointment & Report Access Portal (SDG 15 – Sustainable Agriculture)</p>
+    <p><strong>Survey Scope & Period:</strong> 42 Validated Responses (39 Farming Households + 3 RSK/Soil Lab Staff) across <strong>Machhe, Peeranwadi, Kakati, Hudli, Desur, and Bailhongal</strong> (02/11/2026 to 14/11/2026).</p>
+
+    <div class="stat-cards">
+      <div class="stat-box"><h3>88.1%</h3><p>Requested Kannada / Bilingual Portal</p></div>
+      <div class="stat-box"><h3>81.0%</h3><p>Made 2–4 Extra Trips Just to Check Status</p></div>
+      <div class="stat-box"><h3>73.8%</h3><p>Struggled to Read English N-P-K/pH Values</p></div>
+      <div class="stat-box"><h3>61.9%</h3><p>Faced &gt;15 Days Report Delay</p></div>
+    </div>
+
+    <h3 style="margin-top:1rem; color:var(--primary);">Important Ground-Level Observations</h3>
+    <ul style="margin-left:1.3rem; margin-top:0.5rem;">
+      <li><strong>Unscheduled Walk-Ins (69.0%):</strong> Lack of slot booking creates Kharif/Rabi sowing queues at Belagavi RSKs.</li>
+      <li><strong>Repeated Follow-Up Visits (81.0%):</strong> Farmers travel 12–25 km round-trip multiple times due to zero status alerts.</li>
+      <li><strong>Delayed Turnaround (61.9%):</strong> Manual register entry delays reports past 15 days; 42.9% lost paper slips.</li>
+      <li><strong>Low Interpretability (73.8%):</strong> Raw numeric N-P-K (kg/ha) and EC (dS/m) values lack visual benchmarks.</li>
+    </ul>
+
+    <h3 style="margin-top:1.2rem; color:var(--primary);">Key Stakeholder Needs Addressed in This Portal</h3>
+    <ul style="margin-left:1.3rem; margin-top:0.5rem;">
+      <li><strong>Online Slot Booking & Local Map (83.3%):</strong> Reserve time slots at Belagavi labs and locate RSKs easily.</li>
+      <li><strong>Real-Time Stage Tracking (85.7%):</strong> Track <em>Booked → Sample Collected → Under Analysis → Report Ready</em> online.</li>
+      <li><strong>Color-Coded Bilingual Soil Reports (88.1%):</strong> Low / Optimal / High badges in Kannada & English with crop fertilizer tips (Sugarcane 46.2%, Maize/Jowar 25.6%, Paddy 15.4%, Vegetables/Pulses 12.8%).</li>
+      <li><strong>Digital Lab Admin Dashboard (100% Staff):</strong> Eliminates duplicate manual ledger registers.</li>
+    </ul>
+
+    <h3 style="margin-top:1.2rem; color:var
